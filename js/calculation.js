@@ -49,7 +49,8 @@ export function initCalculation(config) {
           value = step.compute(v, r);
           r[step.key] = value;
           const shown = Number.isFinite(value) ? value.toFixed(step.digits ?? 3) : '—';
-          working = `${step.substitute(v, r)} = \\mathbf{${shown}\\ \\text{${step.unit ?? ''}}}`;
+          const unit = String(step.unit ?? '').replace(/%/g, '\\%');
+          working = `${step.substitute(v, r)} = \\mathbf{${shown}\\ \\text{${unit}}}`;
         } catch (_) {
           working = '\\text{cannot be calculated for these inputs}';
         }
