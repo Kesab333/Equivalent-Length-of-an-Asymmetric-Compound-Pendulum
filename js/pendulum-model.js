@@ -260,6 +260,7 @@ export class BasePendulumModel {
       running: !this.paused && swinging,
       paused: this.paused,
       complete: this.timer.done,
+      canChangeParameters: !swinging && !this.paused && !this.anim && !this.free,
       canStart: !swinging && !this.dragging && !this.free && !this.anim && this.l > 0 && this.parameters.angle > 0,
       canPause: swinging || this.paused,
       parameters: { ...this.parameters },
