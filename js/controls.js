@@ -17,7 +17,7 @@ function variableMarkup(v) {
   const id = `ctl-${v.name}`;
   const decimals = v.decimals ?? decimalsOf(v.step);
   return `
-    <div class="var-div" data-var="${v.name}">
+    <div class="var-div" data-var="${v.name}" data-readonly="${v.readonly === true}">
       <label class="var-label" for="${id}-number">${v.label}</label>
       <div class="var-controls-row">
         <input type="range" id="${id}" aria-label="${v.label} slider"
@@ -76,7 +76,6 @@ export function buildControls(config) {
       down: $('.step-down', row)
     };
   });
-  config.variables.filter(v => v.readonly).forEach(v => { const r = refs[v.name]; [r.slider, r.number, r.up, r.down].forEach(e => e.disabled = true); });
   $('#variablesList').insertAdjacentHTML('beforeend', '<div class="var-div"><label class="var-label" for="viewSelect">View</label><select id="viewSelect" class="formula-dropdown"><option value="overview">Whole bench</option><option value="pivot">Pivot</option><option value="gate">IR gate</option><option value="timer">Digital timer</option><option value="simple">Simple pendulum</option></select></div>');
   return refs;
 }
@@ -151,6 +150,15 @@ export function syncControl(refs, name, value, { force = false } = {}) {
 export function renderControls(config, state) {
   const labels = { pause: 'Pause', resume: 'Resume', ...config.labels };
 
+  const variablesEnabled = state.canChangeParameters !== undefined
+    ? state.canChangeParameters
+    : !state.running && !state.paused;
+  document.querySelectorAll('#variablesList .var-div[data-var]').forEach(row => {
+    const readonly = row.dataset.readonly === 'true';
+    row.querySelectorAll('input, button').forEach(input => {
+      input.disabled = readonly || !variablesEnabled;
+    });
+  });
 
   // Button availability comes from the selected pendulum model.
   $('#startButton').disabled = state.canStart !== undefined ? !state.canStart : state.running;
