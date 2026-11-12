@@ -58,7 +58,7 @@
 
 .control-actions-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 0.6rem;
   width: 100%;
 }
@@ -67,7 +67,8 @@
   width: 100%;
   padding: 0.6rem 0.2rem;
   font-size: 1.15rem;
-  white-space: nowrap;
+  line-height: 1.2;
+  overflow-wrap: anywhere;
 }
 
 /* An odd number of buttons: let the last one span the full row instead of leaving a gap */
@@ -228,6 +229,7 @@
 
 .var-number-input::-webkit-inner-spin-button,
 .var-number-input::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+.var-number-input:disabled { color: var(--clr-muted); cursor: not-allowed; }
 
 .stepper-arrow-box {
   display: flex;
@@ -255,6 +257,7 @@
 .step-btn:hover { background: #e0e0e0; color: #000; }
 .step-btn:active { background: #ccc; }
 .step-btn.step-up { border-bottom: 1px solid #d0d0d0; }
+.step-btn:disabled { color: #94a3b8; cursor: not-allowed; }
 
 /* Fixed width keeps the unit column aligned across all rows */
 .var-unit {
