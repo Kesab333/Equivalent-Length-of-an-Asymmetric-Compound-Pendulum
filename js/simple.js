@@ -120,6 +120,7 @@ export class SimplePendulum {
   }
   get state() {
     return {time: this.time, running: !this.paused && this.values.swinging, paused: this.paused,
+    canChangeParameters: !this.values.swinging && !this.paused,
       canStart: !this.values.swinging && !this.dragging && this.parameters.angle > 0, canPause: this.values.swinging || this.paused,
       complete: this.timer.done, parameters: {...this.parameters}, values: this.values, readings: [], history: []};
   }
