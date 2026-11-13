@@ -291,7 +291,7 @@
 .diagram-caption {
   padding: 0 1.6rem 1rem;
   color: #536160;
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   font-style: italic;
   text-align: center;
 }
@@ -528,5 +528,5 @@
 
 /* Brief diagram key: equation labels stay aligned without a long component list. */
 .workspace-card[data-section="diagram"] .side-info-list { gap: .55rem; padding: .8rem; }
-.workspace-card[data-section="diagram"] .side-info-list li { font-size: 1.15rem; line-height: 1.4; }
+.workspace-card[data-section="diagram"] .side-info-list li { font-size: 1.5rem; line-height: 1.4; }
 .workspace-card[data-section="diagram"] .side-info-list .katex { font-size: 1em; }
